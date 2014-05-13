@@ -1,0 +1,4 @@
+deter
+=====
+
+Gentoo overlay
