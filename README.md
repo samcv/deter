@@ -23,7 +23,7 @@ For `urxvt` I’d recommend the following alias, that can also be found in the [
                      -e /bin/bash -c 'chmod o+rw `tty` \
                         && sudo -u rtorrent -H tmux -u -S /home/rtorrent/.tmux/socket attach' &"
 
-##### Separate storage for keeping files from, .torrent files and seeding ones
+##### Separate storage for keeping files from .torrent and seeding ones
 The _storage_ is where you keep the files organized. Now you can specify a folder that would mirror its directory tree, so the .torrent files could be placed separately, but their destination will be bound to the original tree, i.e. the storage. Mirroring can be restricted to specific folders with corresponding level of subdirectories inside them.
 
 There can be more than one storage which directory trees would be mirrored to the directory for .torrent files. But only one to download the actual files. In case you have a big storage which you keep safe and away from the internet, and the other, maybe already faulty, that you use for seeding and don’t care if it will crash one day. Yes, seeding slowly kills your HDDs. So the scheme is simple: I download files to the old faulty storage, then, if I want to keep the files, I copy them to my big and safe storage.
