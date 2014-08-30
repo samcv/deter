@@ -28,7 +28,7 @@ The _storage_ is where you keep the files organized. Now you can specify a folde
 
 There can be more than one storage which directory trees would be mirrored to the directory for .torrent files. But only one to download the actual files. In case you have a big storage which you keep safe and away from the internet, and the other, maybe already faulty, that you use for seeding and don’t care if it will crash one day. Yes, seeding slowly kills your HDDs. So the scheme is simple: I download files to the old faulty storage, then, if I want to keep the files, I copy them to my big and safe storage.
 
-If you’d want to use this, uncomment the `CHECK_WATCH_DIRS` variable in /etc/conf.d/rtorrentd. [check_watch_dirs.sh](http://github.com/deterenkelt/deter/raw/master/net-p2p/rtorrent/files/check_watch_dirs.sh) can be found in `net-p2p/rtorrent/files/` (on your host), put it to the home directory of the user running rtorrent.
+If you’d want to use this, uncomment the `CHECK_WATCH_DIRS` variable in /etc/conf.d/rtorrentd. Example of [check_watch_dirs.sh](http://github.com/deterenkelt/deter/raw/master/net-p2p/rtorrent/files/check_watch_dirs.sh) can be found in `net-p2p/rtorrent/files/` (on your host), put it to the home directory of the user running rtorrent.
 
 ### How to include this overlay
 Since this overlay isn’t on o.g.o yet, there is another way to include it by copying [metadata/deter.xml](http://github.com/deterenkelt/deter/raw/master/metadata/deter.xml) to `/etc/layman/overlays/`.
