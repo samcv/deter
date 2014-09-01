@@ -22,7 +22,7 @@ COMMON_DEPEND="~net-libs/libtorrent-0.12.${PV##*.}
 	selinux? ( sec-policy/selinux-rtorrent )
 	xmlrpc? ( dev-libs/xmlrpc-c )"
 RDEPEND="${COMMON_DEPEND}
-	daemon? ( app-misc/screen )"
+	daemon? ( app-misc/tmux )"
 DEPEND="${COMMON_DEPEND}
 	test? ( dev-util/cppunit )
 	virtual/pkgconfig"
