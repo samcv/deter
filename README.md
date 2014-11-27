@@ -2,6 +2,14 @@ deter
 =====
 Gentoo overlay
 
+### games-util/steam-launcher
+It is the ebuild from gamerlay with
+
+    || ( gnome-extra/zenity x11-terms/xterm )
+    >=app-emulation/emul-linux-x86-baselibs-20121028
+
+removed from dependecies, because I don’t need neither xterm (I use urxvt) nor zenity (it pulls gnome3 and was replaced with Xdialog in my scripts anyway). I can say that L4D2 works without any of these.
+
 ### media-video/watchsh
 [A wrapper for mpv/MPlayer to watch videos easy via CLI.](https://github.com/deterenkelt/watchsh)
 
