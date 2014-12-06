@@ -40,5 +40,5 @@ If you’d want to use this, uncomment the `CHECK_WATCH_DIRS` variable in /etc/c
 
 ### How to include this overlay
 
-# layman -f
-# layman -a deter
+    # layman -f
+    # layman -a deter
