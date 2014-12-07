@@ -10,6 +10,12 @@ It is the ebuild from gamerlay with
 
 removed from dependecies, because I don’t need neither xterm (I use urxvt) nor zenity (it pulls gnome3 and was replaced with Xdialog in my scripts anyway). I can say that L4D2 works without any of these.
 
+### gnome-extra/yad
+
+YAD (yet another dialog) is a tool for creating graphical dialogs from shell scripts.
+
+http://sourceforge.net/projects/yad-dialog/
+
 ### media-video/watchsh
 [A wrapper for mpv/MPlayer to watch videos easy via CLI.](https://github.com/deterenkelt/watchsh)
 
