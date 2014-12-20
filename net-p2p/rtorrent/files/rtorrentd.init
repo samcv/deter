@@ -25,8 +25,8 @@ start() {
 			--exec /usr/bin/tmux -- -u -f /home/$USER/.tmux/config \
 			       -S /home/$USER/.tmux/socket \
 			       new -dn rtorrent "{ stty -ixon -ixoff; /usr/bin/rtorrent; }"
+	pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid
 	eend $?
-	pgrep -f "^rtorrent-tmux" >/run/rtorrentd.pid
 }
 
 stop() {
