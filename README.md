@@ -44,6 +44,11 @@ There can be more than one storage which directory trees would be mirrored to th
 
 If you’d want to use this, uncomment the `CHECK_WATCH_DIRS` variable in /etc/conf.d/rtorrentd. Example of [check_watch_dirs.sh](http://github.com/deterenkelt/deter/raw/master/net-p2p/rtorrent/files/check_watch_dirs.sh) can be found in `net-p2p/rtorrent/files/` (on your host), put it to the home directory of the user running rtorrent.
 
+### www-client/palemoon
+Pale Moon is a fork of Firefox that is cleaner and faster.
+
+BUGS: There may be problems with langpacks.
+
 ### x11-themes/shiki-colors
 Seven elegant themes for Murrine GTK+2 Cairo engine.
 
