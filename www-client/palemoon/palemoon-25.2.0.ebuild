@@ -12,7 +12,7 @@ fy-NL ga-IE gd gl gu-IN he hi-IN hr hu id is it ja kk kn ko ku
 lg lt lv mai mk ml mr nb-NO nl nn-NO nso or pa-IN pl pt-BR pt-PT rm ro
 ru si sk sl son sq sr sv-SE ta ta-LK te th tr uk vi zh-CN zh-TW zu )
 
-MOZ_LANGPACK_PREFIX="langpacks/24.x/"
+MOZ_LANGPACK_PREFIX="langpacks/25.x/"
 
 # Upstream release URI that's used by mozlinguas.eclass
 MOZ_FTP_URI="http://relmirror.palemoon.org"
