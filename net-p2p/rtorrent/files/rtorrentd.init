@@ -9,6 +9,7 @@ depend() {
 }
 
 start() {
+	local c=0
 	PWHOME="$(getent passwd $USER | awk -F: '{ print $6 }')"
 
 	ebegin "Starting rtorrent"
@@ -25,7 +26,10 @@ start() {
 			--exec /usr/bin/tmux -- -u -f /home/$USER/.tmux/config \
 			       -S /home/$USER/.tmux/socket \
 			       new -dn rtorrent "{ stty -ixon -ixoff; /usr/bin/rtorrent; }"
-	pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid
+	until let c++; pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid; do
+		[ $c -gt 15 ] && eend 1
+		sleep 1
+	done
 	eend $?
 }
 

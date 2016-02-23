@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>         
+<repositories version="1.0">
+  <repo priority="50" quality="experimental" status="unofficial">
+	<name>deter</name>
+	<description>Custom stuff from deterenkelt.</description>
+	<homepage>http://github.com/deterenkelt/deter/</homepage>
+	<owner>
+	  <email>deterenkelt.github@gmail.com</email>
+	</owner>
+	<source
+		type="git">git://github.com/sarnold/portage-overlay.git</source>
+  </repo>
+</repositories>
