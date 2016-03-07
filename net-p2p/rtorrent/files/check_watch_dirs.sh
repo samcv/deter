@@ -13,9 +13,9 @@ torrent_files_dir='/home/torrents'  # There  can be  several mirrors assembled
                                     # from different paths.  This ‘superglobal’
                                     # folder for all the mirrors
                                     # is torrent_files_dir.
-storage_hosts=( home )  # Replace ‘home’ with your hostname  on which rtorrent
-                        # is running  (this was introduced  for advanced setup
-                        # that is not implemented yet).
+storage_hosts=( hostname )  # Replace  ‘hostname’ with your  hostname on which
+                            # rtorrent is running (this was introduced  for ad-
+                            # vanced setup that is not implemented yet).
 storages=('/home' )  # The root directory  of the path where  the actual files
                      # are  to be  downloaded.  add '/another/path',  to clone
                      # its folders to the mirror.
@@ -29,10 +29,7 @@ storages=('/home' )  # The root directory  of the path where  the actual files
             # have more or less identical structure.
 # Below are subfolders under paths in ‘storages’ which directory trees must be
 # kept  in sync  with the mirror.  NOTE THAT ONLY THESE SUBFOLDERS AND THE SUB-
-# FOLDERS  BELOW them will be watched by rtorrent for .torrent files!  No path
-# specified in ‘storages’ is a directory for watch by itself! I.e. for what we
-# have above, it would be /home/torrents/home. Don’t place files directly into
-# this folder!
+# FOLDERS  BELOW them will be watched by rtorrent for .torrent files!
 storage_subdirs=(         'brains' 'music'  'video' 'gamefiles' 'misc_torrents' 'picts/manga')
 storage_subdirs_maxdepth=( 1        1        2       1           1               0)
 watchdir_count=0  # a counter, that, for some unknown reason,  is required for
