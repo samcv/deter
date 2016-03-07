@@ -13,33 +13,36 @@ http://sourceforge.net/projects/yad-dialog/
 
 ### net-p2p/rtorrent
 BitTorrent client using libtorrent.
-This package uses `tmux` instead of `screen`, so you won’t need to keep the latter in your system anymore.
-It doesn’t alter any of the rtorrent source code, only the init script.
+In this overlay the ebuild file for `rtorrent` is modified to use `tmux` instead of `screen`, so you don’t need to keep the latter in your system anymore. The init.d script is modified accordingly to run a `tmux` session at startup. Before the start, if the variable `CHECK_WATCH_DIRS` is set and contains a name of an executable file residing in the home directory of the user running `rtorrentd`, it runs that file. The variable, if needed, should be set in `/etc/conf.d/rtorrentd`, as usual. An example file `check_watch_dirs.sh` comes with the ebuild and can be found in layman with the following command.
 
-Accessing the running rtorrent session can be done via this command:
+$ ls /var/lib/layman/deter/net-p2p/rtorrent/files/check_watch_dirs.sh
 
-    chmod o+rw `tty` \
-        && sudo -u rtorrent -H tmux -u -S /home/rtorrent/.tmux/socket attach
+This script maintains a mirrored folder tree of your filesystem for you, so you could keep .torrent files separately from the files you download and get what you download already placed where it needs to be. `check_watch_dirs.sh` modifies `rtorrent.rc`, so the rtorrent daemon will check for .torrent files in the mirror and use corresponding path **on the living filesystem** to download the torrent itself.
 
-Where `/home/rtorrent` is the home directory of the user running rtorrent.
+![](https://raw.githubusercontent.com/wiki/deterenkelt/deter/images/rtorrentd-mirroring.gif)
 
-For `urxvt` I’d recommend the following alias, that can also be found in the [dotfiles repository](https://github.com/deterenkelt/dotfiles/blob/master/bashrc/home.sh):
+Variables that you need to set in [check_watch_dirs.sh](https://github.com/deterenkelt/deter/blob/master/net-p2p/rtorrent/files/check_watch_dirs.sh) are commented well and should be self-explanatory.
+
+For easy access to the rtorrent running in tmux use an alias.
 
     alias rt="urxvtc -title rtorrent -hold \
                      -e /bin/bash -c 'chmod o+rw `tty` \
-                        && sudo -u rtorrent -H tmux -u -S /home/rtorrent/.tmux/socket attach' &"
+                                        && sudo -u rtorrent -H tmux -u -S /home/rtorrent/.tmux/socket attach' &"
 
-##### Separate storage for keeping files from .torrent and seeding ones
-The _storage_ is where you keep the files organized. Now you can specify a folder that would mirror its directory tree, so the .torrent files could be placed separately, but their destination will be bound to the original tree, i.e. the storage. Mirroring can be restricted to specific folders with corresponding level of subdirectories inside them.
+Here it calls an `urxvt` terminal and passes to it a command which runs `tmux attach`. It supposes that the daemon is running from another user for security measures. In this case you may also need to allow the user you usually log in as to run this command without a password. The needed part for your `/etc/sudoers` is below.
 
-There can be more than one storage which directory trees would be mirrored to the directory for .torrent files. But only one to download the actual files. In case you have a big storage which you keep safe and away from the internet, and the other, maybe already faulty, that you use for seeding and don’t care if it will crash one day. Yes, seeding slowly kills your HDDs. So the scheme is simple: I download files to the old faulty storage, then, if I want to keep the files, I copy them to my big and safe storage.
+    User_Alias RTORRENT_USER = my_user_name
+    Cmnd_Alias RTORRENT_CMD  = /usr/bin/tmux, \
+                               /usr/bin/pkill -STOP -xf /usr/bin/rtorrent, \
+                               /usr/bin/pkill -CONT -xf /usr/bin/rtorrent
+    Defaults:RTORRENT_USER env_reset
+    Defaults:RTORRENT_USER env_keep += DISPLAY
+    Defaults:RTORRENT_USER env_keep += XAUTHORITY
+    RTORRENT_USER ALL = (rtorrent) NOPASSWD: RTORRENT_CMD
 
-If you’d want to use this, uncomment the `CHECK_WATCH_DIRS` variable in /etc/conf.d/rtorrentd. Example of [check_watch_dirs.sh](http://github.com/deterenkelt/deter/raw/master/net-p2p/rtorrent/files/check_watch_dirs.sh) can be found in `net-p2p/rtorrent/files/` (on your host), put it to the home directory of the user running rtorrent.
+Where `my_user_name` is the name of the user that will be actually using rtorrent in tmux, and `rtorrent` is the name of the user that starts the daemon. Usually it’s name is set in `/etc/conf.d/rtorrentd`.
 
-### www-client/palemoon
-Pale Moon is a fork of Firefox that is cleaner and faster.
-
-BUGS: There may be problems with langpacks.
+The additional commands that send `SIGSTOP` and `SIGCONT` are not necessary, but come in handy, if you need to temporary set `rtorrent` on pause to free the link. You can find the functions `rt-pause` and `rt-unpause` in my [home.sh](https://github.com/deterenkelt/dotfiles/blob/master/bashrc/home.sh) under the `rt` alias.
 
 ### x11-themes/shiki-colors
 Seven elegant themes for Murrine GTK+2 Cairo engine.
