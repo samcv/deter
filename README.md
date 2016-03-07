@@ -15,7 +15,7 @@ http://sourceforge.net/projects/yad-dialog/
 BitTorrent client using libtorrent.
 In this overlay the ebuild file for `rtorrent` is modified to use `tmux` instead of `screen`, so you don’t need to keep the latter in your system anymore. The init.d script is modified accordingly to run a `tmux` session at startup. Before the start, if the variable `CHECK_WATCH_DIRS` is set and contains a name of an executable file residing in the home directory of the user running `rtorrentd`, it runs that file. The variable, if needed, should be set in `/etc/conf.d/rtorrentd`, as usual. An example file `check_watch_dirs.sh` comes with the ebuild and can be found in layman with the following command.
 
-$ ls /var/lib/layman/deter/net-p2p/rtorrent/files/check_watch_dirs.sh
+    $ ls /var/lib/layman/deter/net-p2p/rtorrent/files/check_watch_dirs.sh
 
 This script maintains a mirrored folder tree of your filesystem for you, so you could keep .torrent files separately from the files you download and get what you download already placed where it needs to be. `check_watch_dirs.sh` modifies `rtorrent.rc`, so the rtorrent daemon will check for .torrent files in the mirror and use corresponding path **on the living filesystem** to download the torrent itself.
 
