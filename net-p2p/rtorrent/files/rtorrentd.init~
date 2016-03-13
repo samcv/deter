@@ -1,0 +1,50 @@
+#!/sbin/runscript
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-p2p/rtorrent/files/rtorrentd.init,v 1.8 2011/11/07 15:46:30 darkside Exp $
+
+depend() {
+	use net ypbind nis
+	after slapd mysqld postgresql
+}
+
+start() {
+	local c=0
+	PWHOME="$(getent passwd $USER | awk -F: '{ print $6 }')"
+
+	ebegin "Starting rtorrent"
+	[ -v CHECK_WATCH_DIRS ] && {
+		einfon 'Checking for watchdir script…'
+		[ -x /home/$USER/$CHECK_WATCH_DIRS ] \
+			&& /bin/bash /home/$USER/$CHECK_WATCH_DIRS \
+			|| eend $?
+	}
+	env TERM="xterm" \
+		start-stop-daemon \
+			--start \
+			--make-pidfile \
+			--pidfile /var/run/rtorrentd.pid \
+			--background \
+			--user $USER \
+			--env HOME="${PWHOME:-/home/$USER}" \
+			--name rtorrent-tmux \
+			--exec /bin/true
+	# 		--exec /usr/bin/tmux -- -u -f /home/$USER/.tmux/config \
+	# 		       -S /home/$USER/.tmux/socket \
+	# 		       new -dn rtorrent "{ stty -ixon -ixoff; /usr/bin/rtorrent; }"
+	# until let c++; pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid; do
+	# 	[ $c -gt 15 ] && eend 1
+	# 	sleep 1
+	# done
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping rtorrent"
+	# start-stop-daemon \
+	# 	--stop \
+	# 	--signal 15 \
+	# 	--retry 60 \
+	# 	--pidfile /run/rtorrentd.pid
+	eend 0
+}

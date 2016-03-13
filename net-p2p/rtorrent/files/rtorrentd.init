@@ -11,11 +11,22 @@ depend() {
 start() {
 	local c=0
 	PWHOME="$(getent passwd $USER | awk -F: '{ print $6 }')"
-
-	ebegin "Starting rtorrent"
-	[ -v CHECK_WATCH_DIRS ] \
-		&& [ -x /home/$USER/$CHECK_WATCH_DIRS ] \
-		&& /bin/bash /home/$USER/$CHECK_WATCH_DIRS
+	einfo "Starting rtorrent…"
+	[ -v CHECK_WATCH_DIRS ] && {
+		eindent
+		einfo "Checking for watchdir script…"
+		# Home directory is not necessarily /home/something
+		users_home=`eval echo ~$USER`
+		watchdir_script="$users_home/$CHECK_WATCH_DIRS"
+		[ -x $watchdir_script ] \
+			&& { /bin/bash $watchdir_script; :; } \
+			||{
+				eend $?
+				eerror ‘$watchdir_script’ is not an executable script.
+				return 3
+			}
+		eoutdent
+	}
 	env TERM="xterm" \
 		start-stop-daemon \
 			--start \
@@ -23,10 +34,10 @@ start() {
 			--pidfile /var/run/rtorrentd.pid \
 			--background \
 			--user $USER \
-			--env HOME="${PWHOME:-/home/$USER}" \
+			--env HOME="${PWHOME:-$users_home}" \
 			--name rtorrent-tmux \
-			--exec /usr/bin/tmux -- -u -f /home/$USER/.tmux/config \
-			       -S /home/$USER/.tmux/socket \
+			--exec /usr/bin/tmux -- -u -f $users_home/.tmux/config \
+			       -S $users_home/.tmux/socket \
 			       new -dn rtorrent "{ stty -ixon -ixoff; /usr/bin/rtorrent; }"
 	until let c++; pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid; do
 		[ $c -gt 15 ] && eend 1
@@ -37,7 +48,10 @@ start() {
 
 stop() {
 	ebegin "Stopping rtorrent"
-	start-stop-daemon --stop --signal 15 \
-			--pidfile /run/rtorrentd.pid
-	eend $?
+	start-stop-daemon \
+		--stop \
+		--signal 15 \
+		--retry 120 \
+		--pidfile /run/rtorrentd.pid
+	eend 0
 }
