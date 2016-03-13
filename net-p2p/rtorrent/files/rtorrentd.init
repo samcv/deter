@@ -10,14 +10,14 @@ depend() {
 
 start() {
 	local c=0
-	PWHOME="$(getent passwd $USER | awk -F: '{ print $6 }')"
+	PWHOME="$(getent passwd $USER |& sed -rn 's/.*:([^:]+):[^:]+$/\1/p')"
+	HOME=${PWHOME:-/home/$USER}
+
 	einfo "Starting rtorrent…"
 	[ -v CHECK_WATCH_DIRS ] && {
 		eindent
 		einfo "Checking for watchdir script…"
-		# Home directory is not necessarily /home/something
-		users_home=`eval echo ~$USER`
-		watchdir_script="$users_home/$CHECK_WATCH_DIRS"
+		watchdir_script="$HOME/$CHECK_WATCH_DIRS"
 		[ -x $watchdir_script ] \
 			&& { /bin/bash $watchdir_script; :; } \
 			||{
@@ -34,10 +34,10 @@ start() {
 			--pidfile /var/run/rtorrentd.pid \
 			--background \
 			--user $USER \
-			--env HOME="${PWHOME:-$users_home}" \
+			--env HOME="$HOME" \
 			--name rtorrent-tmux \
-			--exec /usr/bin/tmux -- -u -f $users_home/.tmux/config \
-			       -S $users_home/.tmux/socket \
+			--exec /usr/bin/tmux -- -u -f $HOME/.tmux/config \
+			       -S $HOME/.tmux/socket \
 			       new -dn rtorrent "{ stty -ixon -ixoff; /usr/bin/rtorrent; }"
 	until let c++; pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid; do
 		[ $c -gt 15 ] && eend 1
