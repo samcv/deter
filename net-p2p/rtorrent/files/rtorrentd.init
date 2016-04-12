@@ -38,7 +38,7 @@ start() {
 			--name rtorrent-tmux \
 			--exec /usr/bin/tmux -- -u -f $HOME/.tmux/config \
 			       -S $HOME/.tmux/socket \
-			       new -dn rtorrent "{ stty -ixon -ixoff; /usr/bin/rtorrent; }"
+			       new -dn rtorrent "{ stty -ixon -ixoff; ionice -c idle /usr/bin/rtorrent; }"
 	until let c++; pgrep -u $USER -nf "^/usr/bin/rtorrent$" >/run/rtorrentd.pid; do
 		[ $c -gt 15 ] && eend 1
 		sleep 1
