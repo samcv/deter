@@ -13,14 +13,15 @@ torrent_files_dir='/home/torrents'  # There  can be  several mirrors assembled
                                     # from different paths.  This ‘superglobal’
                                     # folder for all the mirrors
                                     # is torrent_files_dir.
-storage_hosts=( hostname )  # Replace  ‘hostname’ with your  hostname on which
-                            # rtorrent is running (this was introduced  for ad-
-                            # vanced setup that is not implemented yet).
+storage_hosts=( $HOSTNAME ) # Leave as it is. This is to differentiate folders
+                            # that mounted  from another  hosts  (backup,  for
+                            # example) from the host running  the deamon,  but
+                            # some  things  were  left unimplemented,  so just
+                            # leave it as it is.
 storages=('/home' )  # The root directory  of the path where  the actual files
                      # are  to be  downloaded.  add '/another/path',  to clone
                      # its folders to the mirror.
-                     # NB:  that  will   ONLY  CLONE  THE  EMPTY  FOLDER  TREE,
-                     # it  won’t  download  files  to several  places  at once.
+                     # NB:  that  will   ONLY  CLONE   AN  EMPTY  FOLDER  TREE.
             # The idea of multilple sources  for the mirror tree (aka storages)
             # is to maintain the hierarchy from several storages, but download
             # only to one of them (you download, you watch, you decide, if you
@@ -31,7 +32,7 @@ storages=('/home' )  # The root directory  of the path where  the actual files
 # kept  in sync  with the mirror.  NOTE THAT ONLY THESE SUBFOLDERS AND THE SUB-
 # FOLDERS  BELOW them will be watched by rtorrent for .torrent files!
 storage_subdirs=(         'brains' 'music'  'video' 'gamefiles' 'misc_torrents' 'picts/manga')
-storage_subdirs_maxdepth=( 1        1        2       1           1               0)
+storage_subdirs_maxdepth=( 1        2        2       1           1               0)
 watchdir_count=0  # a counter, that, for some unknown reason,  is required for
                   # the corresponding directove in rtorrent.rc.
 verbose_log='_verbose'  # rtorrent’s verbosity per each rule?
