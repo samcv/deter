@@ -75,13 +75,13 @@ for host in "${hosts[@]}"; do
 			}
 		done <  <(find "$torrents_dir/$host" -mindepth 1 -type d -print0)
 
-		for storage_dir in ${!storage_dirs[@]}; do
+		for storage_dir in ${!storage_subdirs[@]}; do
 			while IFS= read -r -d $'\0'; do
 				[ -e "$torrents_dir/$host/$REPLY" ] \
 					|| mkdir -p --mode=775 "$torrents_dir/$host/$REPLY"
 				REPLY=$(echo "$REPLY" | sed 's/ /\\\\\ /g; s/;/\\\\\;/g' )
 				echo "schedule = watch_directory_$((watchdir_count++)),10,10,\"load_start$verbose_log=\\\"$torrents_dir/$host/$REPLY/*.torrent\\\",d.set_directory=\\\"$REPLY\\\"\"" >> "$rt_home/.rtorrent.rc"
-			done <  <(find "$storage_dir" -maxdepth ${storage_dirs[storage_dir]} -type d -print0)
+			done <  <(find "$storage_dir" -maxdepth ${storage_subdirs[$storage_dir]} -type d -print0)
 		done
 		chown -R --reference="$rt_home/.rtorrent.rc"  "$torrents_dir"
 	}
