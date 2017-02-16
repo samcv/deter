@@ -22,9 +22,9 @@ src_unpack() {
 	unpack ./data.tar.xz
 }
 
-src_prepare() {
-	epatch "${FILESDIR}"/viber.patch
-}
+#src_prepare() {
+	#epatch "${FILESDIR}"/viber.patch
+#}
 
 src_install(){
 	doins -r "${S}"/opt "${S}"/usr
