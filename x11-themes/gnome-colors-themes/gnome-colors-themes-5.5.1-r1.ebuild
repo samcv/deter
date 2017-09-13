@@ -37,7 +37,7 @@ src_install() {
 	done
 	# ‘gnome’ theme is kind of deprecated,
 	# and gnome-colors-common now fails to inherit it.
-	sed -ri '\s*Inherits=gnome\s*/Inherits=Adwaita/' /usr/share/icons/gnome-colors-common/index.theme
+	sed -ri 's/\s*Inherits=gnome\s*/Inherits=Adwaita/' /usr/share/icons/gnome-colors-common/index.theme
 	einstalldocs
 }
 
