@@ -16,7 +16,7 @@ KEYWORDS="*"
 IUSE=""
 
 RDEPEND="x11-themes/gtk-engines-murrine
-         || (x11-themes/gnome-colors-common x11-themes/gnome-colors-themes)"
+         x11-themes/gnome-colors-common"
 DEPEND=""
 RESTRICT="binchecks strip"
 
