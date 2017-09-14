@@ -7,7 +7,7 @@ inherit gnome2-utils
 DESCRIPTION="GNOME-colors icon themes made by Victor Castillejo (perfectska04). Suit well with Shiki-colors GTK themes. This version fixes inheritance on ‘gnome’ theme – which doesn’t work anymore – to Adwaita."
 HOMEPAGE="https://code.google.com/p/gnome-colors/"
 
-SRC_URI="https://github.com/deterenkelt/gnome-colors-themes/archive/v${PV}.tar.gz"
+SRC_URI="https://github.com/deterenkelt/gnome-colors-themes/releases/download/v${PV}/${PN}-${PV}.tar.gz"
 
 LICENSE="GPL-2 public-domain"
 SLOT="0"
