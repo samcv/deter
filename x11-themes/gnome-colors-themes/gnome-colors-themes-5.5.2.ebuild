@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE=""
 
-RDEPEND="x11-themes/gnome-colors-common
+RDEPEND="=x11-themes/gnome-colors-common-5.5.2
          x11-themes/adwaita-icon-theme"
 DEPEND=""
 
