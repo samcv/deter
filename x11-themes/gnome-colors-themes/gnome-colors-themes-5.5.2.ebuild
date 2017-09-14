@@ -14,7 +14,8 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE=""
 
-RDEPEND="x11-themes/adwaita-icon-theme"
+RDEPEND="x11-themes/gnome-colors-common
+         x11-themes/adwaita-icon-theme"
 DEPEND=""
 
 RESTRICT="binchecks strip"
