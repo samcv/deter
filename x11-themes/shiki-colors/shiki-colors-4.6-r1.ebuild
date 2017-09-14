@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Seven elegant themes for Murrine GTK+2 Cairo engine."
+DESCRIPTION="Elegant themes for GTK+2 engine. For suitable icons install gnome-colors-themes-5.5.2."
 HOMEPAGE="http://code.google.com/p/gnome-colors/"
 
 SRC_URI="http://gnome-colors.googlecode.com/files/${P}.tar.gz
