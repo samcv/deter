@@ -47,7 +47,7 @@ src_install() {
 	doins -r fonts lang stamps templates masterpdfeditor5.png
 
 	exeinto /opt/${PN}
-	doexe masterpdfeditor4
+	doexe masterpdfeditor5
 
 	dosym ../${PN}/masterpdfeditor5 /opt/bin/masterpdfeditor5
 	make_desktop_entry "masterpdfeditor5 %f" \
