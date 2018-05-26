@@ -44,7 +44,7 @@ S="${WORKDIR}/${PN}-${PV%%.*}"
 
 src_install() {
 	insinto /opt/${PN}
-	doins -r fonts lang stamps templates masterpdfeditor4.png
+	doins -r fonts lang stamps templates masterpdfeditor5.png
 
 	exeinto /opt/${PN}
 	doexe masterpdfeditor4
